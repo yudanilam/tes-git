@@ -13,3 +13,140 @@ git add (all other files)
 git commit -m 'reinitialized files'
 git push origin master --force  # <- caution, --force can delete others work.
 
+
+
+Tutorial Cara Menggunakan Git dengan Remote Repository.
+
+
+Kondisi 1: Kamu sudah membuat proyek di komputer kamu namun belum disimpan di git.
+
+Kalau kamu belum pernah menyimpan proyek kamu menggunakan git, misal proyek Laravel, kamu bisa memulainya dengan melakukkan command berikut ini pada command line di dalam folder proyek kamu. Selalu di dalam folder proyeknya!
+
+git init
+
+Git akan membuat hidden folder bernama .git di dalam folder proyek kamu. Di situlah git akan menyimpan semua data terkait version control dari proyek Laravel tersebut. Jangan lupa ini hidden folder. Kalau file browser-mu tidak menampilkan hidden folder, kamu tidak akan melihat semua hidden folder berawalan titik (dot).
+
+Sekarang gunakan command berikut ini untuk melihat status dari git di proyek kamu.
+
+git status
+
+Kamu akan melihat status dari file-file dalam folder proyek kamu, mana yang belum masuk ke version control, mana file yang baru, mana file yang ada perubahan, mana file yang dihapus, dan lain-lain.
+
+Sebelum lanjut, coba kamu buka file bernama .gitignore di dalam folder proyek kamu. Isinya kurang lebih mengandung baris-baris berikut ini.
+
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+https://github.com/laravel/laravel/blob/master/.gitignore
+
+Apa itu gitignore? Dia adalah file yang berisi nama-nama folder dan file mana saja yang harus diabaikan oleh git. Contoh, folder vendor. Folder vendor ini isinya bisa puluhan MB, bahkan ratusan MB kalau kamu install 3rd party library banyak. Folder vendor ini tidak perlu dan jangan dimasukkan dalam git version controll. Isi dari folder vendor bisa diinstall dengan menggunakan composer. Jadi jangan khawatir. Yg perlu kamu khawatirkan adalah code yang sudah susah payah kamu tulis, jangan sampai hilang. Di sinilah fungsi git. Tapi fungsi git tidak hanya sebatas itu. Git adalah version controll. Lebih dari sekedar data backup.
+
+Pastikan file gitignore kamu sudah mencakup nama folder dan file yang tidak boleh dimasukkan ke dalam git. Contoh di atas adalah isi minimal dari gitignore untuk proyek laravel. Bisa kamu tambahkan sendiri. Tetapi pastikan kamu tahu/paham betul apa yang kamu lakukan.
+
+Sekarang lanjut. Kamu bisa masukkan folde-folder dan file-file pada proyek kamu dengan cara seperti ini.
+
+git add namafolder
+git add myfolder
+git add namafile.php
+git add myfile.txt
+
+Agar cepat, kamu juga bisa menggunakan wild card seperti berikut ini. Tetapi pastikan file gitignore-nya isinya sudah benar.
+
+git add *
+
+Nah sekarang coba jalankan lagi git status. Kamu akan melihat banyak warna hijau, menandakan itu adalah folder dan file baru.
+
+git status
+
+Selanjutnya gunakan command berikut ini untuk menyimpan perubahan pada git.
+
+git commit -am "Wajib tulis catatan kamu di sini. Jangan dikosongkan!"
+
+Dengan command tersebut git akan menyimpan history perubahan proyek kamu. Kamu bisa melihat semua riwayat perubahan pada proyek kamu. Kamu juga bisa mengembalikan ke versi tanggal sekian atau jam sekian. Itulah kenapa dinamakan version controll.
+
+Nah sekarang kamu sudah punya proyek dengan git. Kamu perlu lanjut ke kondisi kedua.
+Kondisi 2: Kamu sudah punya proyek dengan git namun belum ada remote repository-nya.
+
+Sebelumnya coba terlebih dahulu lihat apakah sudah ada remote repository pada git kamu. Caranya dengan menggunakan command berikut ini.
+
+git remote -v
+
+Kalau kosong berarti belum ada. Gunakan command berikut ini untuk memberikan remote repository pada git dalam proyek kamu.
+
+git remote add origin https://github.com/laravel/laravel.git
+git remote add raraver https://github.com/laravel/laravel.git
+git remote add whatthefuck https://github.com/laravel/laravel.git
+
+Perhatikan! Origin/raraver adalah tanda untuk menamai remote repository ini. Kamu bisa beri nama sesukamu. Kenapa diberi nama? Karena kamu bisa memberi lebih dari 1 remote repository pada git kamu. Maka setiap repo harus diberi nama. Origin adalah nama default.
+
+Nah sekarang coba lagi lihat.
+
+git remote -v
+
+Tadi kamu sudah melakukan git add namafolder dan git commit -am “note”. Semua versi code-mu sudah ada di git lokal (dalam folder proyek kamu, di dalam folder .git). Sekarang waktunya kamu menyimpan versi code kamu ke remote repo. Caranya gunakan command berikut ini.
+
+git push origin master
+git push raraver master
+git push whatthefuck master
+
+Perhatikan! Master adalah nama branch. Kita tidak akan bahas dulu di tutorial ini. Default-nya, nama branch kamu adalah master. Command push hanya bisa dilakukan setelah kamu melakukan git commit. Kalau ada perubahan pada proyek kamu, pastikan commit dahulu sebelum push.
+
+Setelah itu kamu akan dimintai username dan password dari remote repo-nya. Selesai!
+Kondisi 3: Sudah ada remote repository-nya namun belum ada proyeknya di komputer kamu.
+
+Gunakan command berikut ini pada command line.
+
+git clone https://github.com/laravel/laravel.git
+
+Git akan mengunduh proyek tersebut ke laptop kamu. Kamu akan melihat folder bernama laravel.
+
+Kalau kamu masuk ke dalam folder itu, kamu akan melihat sebuah hidden folder bernama .git. Di situlah git akan menyimpan semua data terkait version control dari proyek laravel tersebut.
+
+Kondisi ketiga hanya begitu saja.
+Kondisi 4: Sudah ada remote repository-nya dan akan menambahkan remote repo lainnya lagi.
+
+Kamu bisa menambahkan lebih dari 1 remote repo. Caranya seperti pada kondisi 2.
+
+git remote add origin https://somewhere.com/laravel/laravel.git
+git remote add raraver https://raraver.com/laravel/laravel.git
+git remote add whatthefuck https://wtf.com/laravel/laravel.git
+git remote add remote4 https://something.com/laravel/laravel.git
+git remote add bitbucket https://bitbucket.org/laravel/laravel.git
+git remote add gitlab https://gitlab.com/laravel/laravel.git
+git remote add github https://github.com/laravel/laravel.git
+
+Kalau mau push atau pull:
+
+git push origin master
+git push raraver master
+git push whatthefuck master
+git push remote4 master
+git push bitbucket master
+git push gitlab master
+git push github master
+
+Kondisi keempat hanya begitu saja. Mudah kan?
+
+Selanjutnya kamu melakukan aktivitas git seperti biasa. Berikut ini command yang akan sering kamu pakai pada git.
+
+git status
+git add namafolder
+git commit -am "Catatan kamu"
+git push origin master // Untuk menyimpan update ke remote repo.
+git pull origin master // Untuk menarik update dari remote repo.
+
+Sekian dulu tutorial dasar cara menggunakan git dengan remote repository. Lihat remote repository kamu (gitlab, github, bitbucket, dll) apakah code kamu sudah masuk atau belum.
+
+Rujukan
+https://git-scm.com/docs/git-remote
+https://www.atlassian.com/git/tutorials/syncing
