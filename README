@@ -1,0 +1,15 @@
+Tes git baru 
+Pesan kesalahan saya kira-kira seperti ini:
+
+error: src refspec master does not match any.
+error: failed to push some refs to 'git@github ... .git'
+
+Dan itu diselesaikan dengan menjalankan perintah berikut:
+
+touch README
+git add README
+
+git add (all other files)
+git commit -m 'reinitialized files'
+git push origin master --force  # <- caution, --force can delete others work.
+
